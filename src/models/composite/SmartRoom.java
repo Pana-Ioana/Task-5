@@ -19,7 +19,7 @@ public class SmartRoom implements IOTDevice {
 
     @Override
     public void identify() {
-        System.out.printf("Camera «%s» consum total: %dkWh%n", name, getConsumption());
+        System.out.print("Camera " + this.name + " consum total: " + this.getConsumption() + " kWh");
         for (IOTDevice c : children) {
             c.identify();
         }

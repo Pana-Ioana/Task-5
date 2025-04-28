@@ -1,6 +1,8 @@
 package program;
 
 import models.classes.VideoPlayer;
+import models.cli.CameraManager;
+import models.cli.VideoMenu;
 import models.composite.SmartDevice;
 import models.composite.SmartRoom;
 import models.interfaces.IVideoPlayer;
@@ -28,91 +30,35 @@ public class Main {
             String optiune = sc.nextLine();
             switch (optiune) {
                 case "1":
-                    System.out.print("Nume fișier video: ");
-                    String fisier = sc.nextLine();
-                    IVideoPlayer realPlayer = new VideoPlayer(fisier);
-                    IVideoPlayer proxy = new VideoPlayerProxy(realPlayer);
-                    System.out.println("Rezultat redare: " + proxy.playVideo());
+                    VideoMenu.start(sc);
                     break;
 
                 case "2":
-                    System.out.print("Nume cameră: ");
-                    String numeCamera = sc.nextLine();
-                    if (camere.containsKey(numeCamera)) {
-                        System.out.println("Camera „" + numeCamera + "” există deja.");
-                    } else {
-                        camere.put(numeCamera, new SmartRoom(numeCamera));
-                        System.out.println("Camera „" + numeCamera + "” a fost creată.");
-                    }
+                    CameraManager.createRoom(sc, camere);
                     break;
 
                 case "3":
-                    System.out.print("Nume cameră: ");
-                    String cam = sc.nextLine();
-                    SmartRoom camera1 = camere.get(cam);
-                    if (camera1 == null) {
-                        System.out.println("Nu există camera „" + cam + "”.");
-                        break;
-                    }
-                    System.out.print("Nume dispozitiv: ");
-                    String numeDispozitiv = sc.nextLine();
-                    System.out.print("Consum (kWh): ");
-                    int consum = Integer.parseInt(sc.nextLine());
-                    camera1.addComponent(new SmartDevice(numeDispozitiv, consum));
-                    System.out.println("Dispozitivul „" + numeDispozitiv + "” a fost adăugat în camera „" + cam + "”.");
+                    CameraManager.addDevice(sc, camere);
                     break;
 
                 case "4":
-                    System.out.print("Nume cameră părinte: ");
-                    String parinte = sc.nextLine();
-                    System.out.print("Nume sub-cameră: ");
-                    String copil = sc.nextLine();
-                    SmartRoom cameraParinte = camere.get(parinte);
-                    SmartRoom cameraCopil   = camere.get(copil);
-                    if (cameraParinte == null || cameraCopil == null) {
-                        System.out.println("Una sau ambele camere nu există.");
-                    } else {
-                        if (cameraCopil.containsRoom(cameraParinte)) {
-                            System.out.println("EROARE: Nu se poate adăuga „" + copil +
-                                    "” în „" + parinte +
-                                    "” pentru că ar crea un ciclu!");
-                        } else {
-                            cameraParinte.addComponent(cameraCopil);
-                            System.out.println("Sub-camera „" + copil + "” a fost adăugată în camera „" + parinte + "”.");
-                        }
-                    }
+                    CameraManager.addRoom(sc, camere);
                     break;
 
                 case "5":
-                    System.out.print("Nume cameră: ");
-                    String c5 = sc.nextLine();
-                    SmartRoom camera2 = camere.get(c5);
-                    if (camera2 == null) {
-                        System.out.println("Nu există camera „" + c5 + "”.");
-                    } else {
-                        camera2.identify();
-                    }
+                    CameraManager.showConsumption(sc, camere);
                     break;
                 case "6":
-                    System.out.print("Nume cameră: ");
-                    String cname = sc.nextLine();
-                    SmartRoom c = camere.get(cname);
-                    if (c == null) {
-                        System.out.println("Nu există camera „" + cname + "”.");
-                    } else {
-                        System.out.println("Ierarhia pentru camera „" + cname + "”:");
-                        c.printHierarchy("  ");
-                    }
+                    CameraManager.showRoomTree(sc, camere);
                     break;
 
                 case "7":
                     System.out.println("La revedere!");
                     sc.close();
-                    System.exit(0);
                     break;
 
                 default:
-                    System.out.println("Opțiune invalidă. Încercați din nou.");
+                    System.out.println("Optiune invalida!");
             }
         }
     }
