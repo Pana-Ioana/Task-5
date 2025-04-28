@@ -5,7 +5,6 @@ import models.composite.SmartDevice;
 import models.composite.SmartRoom;
 import models.interfaces.IVideoPlayer;
 import models.proxy.VideoPlayerProxy;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -22,7 +21,8 @@ public class Main {
             System.out.println("3) Adaugă dispozitiv în cameră");
             System.out.println("4) Adaugă sub-cameră într-o cameră");
             System.out.println("5) Afișează consumul unei camere");
-            System.out.println("6) Ieșire");
+            System.out.println("6) Afișează ierarhia unei camere");
+            System.out.println("7) Ieșire");
             System.out.print("> ");
 
             String optiune = sc.nextLine();
@@ -72,8 +72,14 @@ public class Main {
                     if (cameraParinte == null || cameraCopil == null) {
                         System.out.println("Una sau ambele camere nu există.");
                     } else {
-                        cameraParinte.addComponent(cameraCopil);
-                        System.out.println("Sub-camera „" + copil + "” a fost adăugată în camera „" + parinte + "”.");
+                        if (cameraCopil.containsRoom(cameraParinte)) {
+                            System.out.println("EROARE: Nu se poate adăuga „" + copil +
+                                    "” în „" + parinte +
+                                    "” pentru că ar crea un ciclu!");
+                        } else {
+                            cameraParinte.addComponent(cameraCopil);
+                            System.out.println("Sub-camera „" + copil + "” a fost adăugată în camera „" + parinte + "”.");
+                        }
                     }
                     break;
 
@@ -87,8 +93,19 @@ public class Main {
                         camera2.identify();
                     }
                     break;
-
                 case "6":
+                    System.out.print("Nume cameră: ");
+                    String cname = sc.nextLine();
+                    SmartRoom c = camere.get(cname);
+                    if (c == null) {
+                        System.out.println("Nu există camera „" + cname + "”.");
+                    } else {
+                        System.out.println("Ierarhia pentru camera „" + cname + "”:");
+                        c.printHierarchy("  ");
+                    }
+                    break;
+
+                case "7":
                     System.out.println("La revedere!");
                     sc.close();
                     System.exit(0);

@@ -21,4 +21,8 @@ public class SmartDevice implements IOTDevice {
     public int getConsumption() {
         return consumption;
     }
+
+    public String getName() {
+        return name;
+    }
 }

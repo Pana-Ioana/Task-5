@@ -31,4 +31,31 @@ public class SmartRoom implements IOTDevice {
                 .mapToInt(IOTDevice::getConsumption)
                 .sum();
     }
+
+    public boolean containsRoom(SmartRoom room) {
+        if (this == room) {
+            return true;
+        }
+        for (IOTDevice child : children) {
+            if (child instanceof SmartRoom) {
+                if (((SmartRoom) child).containsRoom(room)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void printHierarchy(String indent) {
+        System.out.println(indent + "Camera: " + name);
+        for (IOTDevice c : children) {
+            if (c instanceof SmartRoom) {
+                ((SmartRoom) c).printHierarchy(indent + "  ");
+            } else if (c instanceof SmartDevice) {
+                SmartDevice d = (SmartDevice) c;
+                System.out.println(indent + "  Dispozitiv: " + d.getName() +
+                        " (" + d.getConsumption() + "kWh)");
+            }
+        }
+    }
 }
