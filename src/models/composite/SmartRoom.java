@@ -60,4 +60,12 @@ public class SmartRoom implements IOTDevice {
             }
         }
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<IOTDevice> getChildren() {
+        return children;
+    }
 }

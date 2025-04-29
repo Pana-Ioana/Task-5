@@ -38,6 +38,14 @@ public class CameraMenu {
         System.out.print("Introdu consumul dispozitivului (kWh): ");
         int consum = Integer.parseInt(scanner.nextLine());
 
+        for (IOTDevice d : room.getChildren()) {
+            if (d instanceof SmartDevice && ((SmartDevice) d).getName().equals(numeDispozitiv)) {
+                int existent = ((SmartDevice) d).getConsumption();
+                System.out.println("Dispozitivul " + numeDispozitiv + " exista deja cu consum de " + existent + " kWh!");
+                return;
+            }
+        }
+
         room.addComponent(new SmartDevice(numeDispozitiv, consum));
         System.out.println("Dispozitivul " + numeDispozitiv + " a fost adaugat cu succes in camera " + camera + "!");
     }
