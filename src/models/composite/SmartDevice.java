@@ -14,7 +14,7 @@ public class SmartDevice implements IOTDevice {
 
     @Override
     public void identify() {
-        System.out.print("\nDispozitivul " + this.name + " consuma " + this.consumption + " kWh");
+        System.out.println("Dispozitivul " + this.name + " consuma " + this.consumption + " kWh");
     }
 
     @Override

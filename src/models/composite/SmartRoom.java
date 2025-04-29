@@ -19,7 +19,7 @@ public class SmartRoom implements IOTDevice {
 
     @Override
     public void identify() {
-        System.out.print("Camera " + this.name + " consum total: " + this.getConsumption() + " kWh");
+        System.out.println("Camera " + this.name + " consum total: " + this.getConsumption() + " kWh");
         for (IOTDevice c : children) {
             c.identify();
         }
@@ -27,9 +27,12 @@ public class SmartRoom implements IOTDevice {
 
     @Override
     public int getConsumption() {
-        return children.stream()
-                .mapToInt(IOTDevice::getConsumption)
-                .sum();
+       int totalConsumption = 0;
+
+       for(IOTDevice child : children){
+           totalConsumption += child.getConsumption();
+       }
+       return totalConsumption;
     }
 
     public boolean containsRoom(SmartRoom room) {
@@ -51,8 +54,7 @@ public class SmartRoom implements IOTDevice {
         for (IOTDevice c : children) {
             if (c instanceof SmartRoom) {
                 ((SmartRoom) c).printHierarchy(indent + "  ");
-            } else if (c instanceof SmartDevice) {
-                SmartDevice d = (SmartDevice) c;
+            } else if (c instanceof SmartDevice d) {
                 System.out.println(indent + "  Dispozitiv: " + d.getName() +
                         " (" + d.getConsumption() + "kWh)");
             }

@@ -1,15 +1,14 @@
 package program;
 
-import models.classes.VideoPlayer;
-import models.cli.CameraManager;
+import models.cli.CameraMenu;
 import models.cli.VideoMenu;
-import models.composite.SmartDevice;
 import models.composite.SmartRoom;
-import models.interfaces.IVideoPlayer;
-import models.proxy.VideoPlayerProxy;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
+import static java.lang.System.exit;
 
 public class Main {
     public static void main(String[] args) {
@@ -34,26 +33,27 @@ public class Main {
                     break;
 
                 case "2":
-                    CameraManager.createRoom(sc, camere);
+                    CameraMenu.createRoom(sc, camere);
                     break;
 
                 case "3":
-                    CameraManager.addDevice(sc, camere);
+                    CameraMenu.addDevice(sc, camere);
                     break;
 
                 case "4":
-                    CameraManager.addRoom(sc, camere);
+                    CameraMenu.addRoom(sc, camere);
                     break;
 
                 case "5":
-                    CameraManager.showConsumption(sc, camere);
+                    CameraMenu.showConsumption(sc, camere);
                     break;
                 case "6":
-                    CameraManager.showRoomTree(sc, camere);
+                    CameraMenu.showRoomTree(sc, camere);
                     break;
 
                 case "7":
                     System.out.println("La revedere!");
+                    exit(0);
                     sc.close();
                     break;
 

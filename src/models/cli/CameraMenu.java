@@ -2,11 +2,12 @@ package models.cli;
 
 import models.composite.SmartDevice;
 import models.composite.SmartRoom;
+import models.interfaces.IOTDevice;
 
 import java.util.Map;
 import java.util.Scanner;
 
-public class CameraManager {
+public class CameraMenu {
     public static void createRoom(Scanner scanner, Map<String, SmartRoom> camere){
         System.out.print("Nume camera: ");
         String camera = scanner.nextLine();
