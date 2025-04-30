@@ -52,17 +52,17 @@ public class CameraMenu {
         int consum;
         if (consumExistent != null) {
             consum = consumExistent;
-            System.out.println("Dispozitivul „" + numeDispozitiv +
-                    "” există deja în altă cameră cu consumul de " +
-                    consum + " kWh. Folosim același consum.");
+            System.out.println("Dispozitivul " + numeDispozitiv +
+                    " există deja cu consumul de " +
+                    consum + " kWh. Folosim același consum!");
         } else {
             System.out.print("Introdu consumul dispozitivului (kWh): ");
             consum = Integer.parseInt(scanner.nextLine());
         }
         room.addComponent(new SmartDevice(numeDispozitiv, consum));
-        System.out.println("Dispozitivul „" + numeDispozitiv +
-                "” a fost adăugat în camera „" + camera +
-                "” cu consum " + consum + " kWh.");
+        System.out.println("Dispozitivul " + numeDispozitiv +
+                " a fost adaugat în camera " + camera +
+                " cu consum " + consum + " kWh");
     }
 
     public static void addRoom(Scanner sc, Map<String, SmartRoom> camere) {
