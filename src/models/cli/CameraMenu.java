@@ -35,19 +35,34 @@ public class CameraMenu {
 
         System.out.print("Introdu numele dispozitivului: ");
         String numeDispozitiv = scanner.nextLine();
-        System.out.print("Introdu consumul dispozitivului (kWh): ");
-        int consum = Integer.parseInt(scanner.nextLine());
 
-        for (IOTDevice d : room.getChildren()) {
-            if (d instanceof SmartDevice && ((SmartDevice) d).getName().equals(numeDispozitiv)) {
-                int existent = ((SmartDevice) d).getConsumption();
-                System.out.println("Dispozitivul " + numeDispozitiv + " exista deja cu consum de " + existent + " kWh!");
-                return;
+        Integer consumExistent = null;
+        for (SmartRoom r : camere.values()) {
+            for (IOTDevice d : r.getChildren()) {
+                if (d instanceof SmartDevice sd && sd.getName().equals(numeDispozitiv)) {
+                    consumExistent = sd.getConsumption();
+                    break;
+                }
+            }
+            if (consumExistent != null) {
+                break;
             }
         }
 
+        int consum;
+        if (consumExistent != null) {
+            consum = consumExistent;
+            System.out.println("Dispozitivul „" + numeDispozitiv +
+                    "” există deja în altă cameră cu consumul de " +
+                    consum + " kWh. Folosim același consum.");
+        } else {
+            System.out.print("Introdu consumul dispozitivului (kWh): ");
+            consum = Integer.parseInt(scanner.nextLine());
+        }
         room.addComponent(new SmartDevice(numeDispozitiv, consum));
-        System.out.println("Dispozitivul " + numeDispozitiv + " a fost adaugat cu succes in camera " + camera + "!");
+        System.out.println("Dispozitivul „" + numeDispozitiv +
+                "” a fost adăugat în camera „" + camera +
+                "” cu consum " + consum + " kWh.");
     }
 
     public static void addRoom(Scanner sc, Map<String, SmartRoom> camere) {
