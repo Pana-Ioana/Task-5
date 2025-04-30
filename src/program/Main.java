@@ -23,7 +23,8 @@ public class Main {
             System.out.println("4) Adaugă sub-cameră într-o cameră");
             System.out.println("5) Afișează consumul unei camere");
             System.out.println("6) Afișează ierarhia unei camere");
-            System.out.println("7) Ieșire");
+            System.out.println("7) Sterge o componenta");
+            System.out.println("8) Ieșire");
             System.out.print("> ");
 
             String optiune = sc.nextLine();
@@ -52,6 +53,10 @@ public class Main {
                     break;
 
                 case "7":
+                    CameraMenu.remove(sc, camere);
+                    break;
+
+                case "8":
                     System.out.println("La revedere!");
                     exit(0);
                     sc.close();

@@ -113,5 +113,20 @@ public class CameraMenu {
         camera.printHierarchy("  ");
     }
 
+    public static void remove(Scanner sc, Map<String, SmartRoom> camere) {
+        System.out.print("Camera din care vrei sa stergi o componenta: ");
+        String numeCamera = sc.nextLine();
+        SmartRoom camera = camere.get(numeCamera);
+
+        if (camera == null) {
+            System.out.println("Camera " + numeCamera + " nu exista!");
+            return;
+        }
+
+        System.out.print("Numele componentei de sters: ");
+        String nume = sc.nextLine();
+
+        camera.removeComponent(nume);
+    }
 
 }

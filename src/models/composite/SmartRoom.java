@@ -17,6 +17,28 @@ public class SmartRoom implements IOTDevice {
         children.add(component);
     }
 
+    public void removeComponent(String name){
+        IOTDevice device = null;
+
+        for (IOTDevice c : children) {
+            if (c instanceof SmartDevice && ((SmartDevice) c).getName().equals(name)) {
+                device = c;
+                break;
+            }
+            if (c instanceof SmartRoom && ((SmartRoom) c).getName().equals(name)) {
+                device = c;
+                break;
+            }
+        }
+
+        if (device != null) {
+            children.remove(device);
+            System.out.println("Componenta " + name + " a fost stearsa din camera " + this.name + "!");
+        } else {
+            System.out.println("Nu exista nicio componenta!");
+        }
+    }
+
     @Override
     public void identify() {
         System.out.println("Camera " + this.name + " consum total: " + this.getConsumption() + " kWh");
@@ -59,6 +81,10 @@ public class SmartRoom implements IOTDevice {
                         " (" + d.getConsumption() + "kWh)");
             }
         }
+    }
+
+    public String getName() {
+        return name;
     }
 
     public List<IOTDevice> getChildren() {
