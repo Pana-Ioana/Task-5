@@ -17,14 +17,14 @@ public class Main {
 
         while (true) {
             System.out.println("\n=== MENIU ===");
-            System.out.println("1) Redă videoclip");
-            System.out.println("2) Creează cameră");
-            System.out.println("3) Adaugă dispozitiv în cameră");
-            System.out.println("4) Adaugă sub-cameră într-o cameră");
-            System.out.println("5) Afișează consumul unei camere");
-            System.out.println("6) Afișează ierarhia unei camere");
+            System.out.println("1) Reda videoclip");
+            System.out.println("2) Creeaza camera");
+            System.out.println("3) Adauga dispozitiv în camera");
+            System.out.println("4) Adauga sub-camera într-o camera");
+            System.out.println("5) Afiseaza consumul unei camere");
+            System.out.println("6) Afiseaza ierarhia unei camere");
             System.out.println("7) Sterge o componenta");
-            System.out.println("8) Ieșire");
+            System.out.println("8) Iesire");
             System.out.print("> ");
 
             String optiune = sc.nextLine();

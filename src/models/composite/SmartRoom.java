@@ -77,8 +77,7 @@ public class SmartRoom implements IOTDevice {
             if (c instanceof SmartRoom) {
                 ((SmartRoom) c).printHierarchy(indent + "  ");
             } else if (c instanceof SmartDevice d) {
-                System.out.println(indent + "  Dispozitiv: " + d.getName() +
-                        " (" + d.getConsumption() + "kWh)");
+                System.out.println(indent + "  Dispozitiv: " + d.getName() + " (" + d.getConsumption() + "kWh)");
             }
         }
     }
